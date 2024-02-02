@@ -2,5 +2,52 @@
     <h1>elanastroud.me</h1>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/yanSsjaoGKw?si=1p7cXEcZrjruyxXk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     <footer><a href="https://agilend.net">agilend.net</a></footer>
-    
+    <p>
+        valid predicate fields:
+    activityIdentifier                    (integer)
+    bootUUID                              (uuid)
+    category                              (string)
+    composedMessage                       (string)
+    continuousNanosecondsSinceBoot        (integer)
+    creatorActivityIdentifier             (integer)
+    creatorProcessUniqueIdentifier        (integer)
+    date                                  (date)
+    formatString                          (string)
+    logType                               (log type)
+    machContinuousTimestamp               (integer)
+    parentActivityIdentifier              (integer)
+    process                               (string)
+    processIdentifier                     (integer)
+    processImagePath                      (string)
+    processImageUUID                      (uuid)
+    sender                                (string)
+    senderImageOffset                     (integer)
+    senderImagePath                       (string)
+    senderImageUUID                       (uuid)
+    signpostIdentifier                    (integer)
+    signpostScope                         (signpost scope)
+    signpostType                          (signpost type)
+    size                                  (integer)
+    subsystem                             (string)
+    threadIdentifier                      (integer)
+    timeToLive                            (integer)
+    traceIdentifier                       (integer)
+    transitionActivityIdentifier          (integer)
+    type                                  (event type)
+
+valid event types:
+    activityCreateEvent, activityTransitionEvent, userActionEvent,
+    traceEvent, logEvent, timesyncEvent, signpostEvent, lossEvent,
+    stateEvent
+
+valid log types:
+    default, release, info, debug, error, fault
+
+valid signpost scopes:
+    thread, process, system
+
+valid signpost types:
+    event, begin, end
+
+    </p>
     </html>
