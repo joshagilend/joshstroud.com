@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confetti Explosion</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+            cursor: pointer;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="confettiExplosion"></canvas>
+    <script>
+        const canvas = document.getElementById("confettiExplosion");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        function createExplosion(x, y) {
+            for (let i = 0; i < 100; i++) {
+                particles.push({
+                    x,
+                    y,
+                    angle: Math.random() * 2 * Math.PI,
+                    speed: Math.random() * 5 + 2,
+                    size: Math.random() * 5 + 2,
+                    color: `hsl(${Math.random() * 360}, 70%, 50%)`,
+                    life: Math.random() * 100 + 50
+                });
+            }
+        }
+
+        function updateParticles() {
+            particles.forEach((p, i) => {
+                p.x += Math.cos(p.angle) * p.speed;
+                p.y += Math.sin(p.angle) * p.speed;
+                p.life -= 1;
+                if (p.life <= 0) particles.splice(i, 1);
+            });
+        }
+
+        function drawParticles() {
+            particles.forEach(p => {
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        function loop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            updateParticles();
+            drawParticles();
+            requestAnimationFrame(loop);
+        }
+
+        canvas.addEventListener("click", e => {
+            createExplosion(e.clientX, e.clientY);
+        });
+
+        loop();
+    </script>
+</body>
+</html>
