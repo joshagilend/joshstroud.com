@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confetti Rain</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="confettiRain"></canvas>
+    <script>
+        const canvas = document.getElementById("confettiRain");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const confetti = Array.from({ length: 100 }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            w: Math.random() * 10 + 5,
+            h: Math.random() * 10 + 5,
+            color: `hsl(${Math.random() * 360}, 70%, 50%)`,
+            speed: Math.random() * 3 + 1,
+            tilt: Math.random() * 10 - 5,
+        }));
+
+        function drawConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            confetti.forEach(c => {
+                c.y += c.speed;
+                c.x += c.tilt / 2;
+                if (c.y > canvas.height) c.y = -10;
+                ctx.fillStyle = c.color;
+                ctx.fillRect(c.x, c.y, c.w, c.h);
+            });
+        }
+
+        function animate() {
+            drawConfetti();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
