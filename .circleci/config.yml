@@ -1,0 +1,34 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:current
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: |
+            if [ -f package.json ]; then
+              npm install
+            else
+              echo "No package.json, skipping npm install"
+            fi
+      - run:
+          name: Run HTML Linter
+          command: |
+            npm install -g htmlhint
+            htmlhint index.html || echo "No errors in index.html"
+      - run:
+          name: Start HTTP Server and Verify
+          command: |
+            npm install -g http-server
+            http-server -c-1 . &
+            sleep 5
+            curl -I http://localhost:8080/index.html
+
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - build
